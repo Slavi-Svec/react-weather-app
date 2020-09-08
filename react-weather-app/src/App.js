@@ -1,14 +1,20 @@
 import React from 'react';
+import Text from './Components/Text/Text'
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <h1>
-        React Weather App
-      </h1>
+    <Text
+        text="Weather App"
+        className="Main__title"
+        variant="h1"
+      />
     </div>
-  );
+  )
 }
 
 export default App;
+
+
+
