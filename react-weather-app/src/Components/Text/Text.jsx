@@ -1,5 +1,4 @@
 import React from 'react'
-import './styles.scss'
 
 const Text = ({ text, variant = 'p', className }) => {
   const HtmlTag = variant
