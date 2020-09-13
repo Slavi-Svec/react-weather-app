@@ -1,11 +1,15 @@
 import React from 'react'
-import './styles.scss'
 
-const Text = ({ text, variant = 'p', className }) => {
+const Text = ({ text, variant = 'p', className, showUniCode }) => {
   const HtmlTag = variant
   return (
-    <HtmlTag className={className}>{text}</HtmlTag>
+    <>
+      <HtmlTag className={className}>{text} {showUniCode && <span>&#176;</span>}</HtmlTag>
+    </>
   )
 }
 
 export default Text
+
+
+
