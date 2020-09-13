@@ -13,13 +13,10 @@ const App = () => {
     fetch(weatherUrl)
       .then((response) => response.json())
       .then((weather) => {
-      const currentWeather = Math.round(weather.main.temp)
-      const  cityName = weather.name
-      const weatherIcon = weather.weather[0].icon
-      setTemp(currentWeather)
-      setCity(cityName)
-      setIconID(weatherIcon)
-    })
+        setTemp(Math.round(weather.main.temp))
+        setCity(weather.name)
+        setIconID(weather.weather[0].icon)
+      })
   })
 
   return (
@@ -30,11 +27,12 @@ const App = () => {
         variant="h1"
       />
       <Text
+        showUniCode
         text={temp}
         className="weather__temperature"
         variant="h2"
       />
-      <Image className="weather__icon" src={"http://openweathermap.org/img/wn/" + iconID + "@2x.png"} />
+      <Image className="weather__icon" src={`http://openweathermap.org/img/wn/${iconID}@2x.png`} />
     </div>
   )
 }
