@@ -32,8 +32,7 @@ const App = () => {
         className="weather__temperature"
         variant="h2"
       />
-      <Image className="weather__icon" src={`http://openweathermap.org/img/wn/${iconID}@2x.png`} />
-    </div>
+      {iconID && <Image className="weather__icon" src={`http://openweathermap.org/img/wn/${iconID}@2x.png`} />}</div>
   )
 }
 
