@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Text from './Components/Text/Text'
 import './App.css';
 import Image from './Components/Image/Image'
+import Weather from './Components/Weather/Weather'
 
 const weatherUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=2000,au&units=metric&appid=e1ec3878f6bdc360d0bd74911e0ba7fa'
+
 
 const App = () => {
   const [temp, setTemp] = useState('')
@@ -21,7 +23,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Text
+      {/* <Text
         text={city}
         className="weather__title"
         variant="h1"
@@ -32,11 +34,16 @@ const App = () => {
         className="weather__temperature"
         variant="h2"
       />
-      {iconID && <Image className="weather__icon" src={`http://openweathermap.org/img/wn/${iconID}@2x.png`} />}</div>
+        {iconID && <Image className="weather__icon"
+        src={`http://openweathermap.org/img/wn/${iconID}@2x.png`}
+      />} */}
+      <Weather />
+    </div>
   )
 }
 
 export default App;
+
 
 
 
