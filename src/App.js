@@ -1,46 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import Text from './Components/Text/Text'
-import './App.css';
-import Image from './Components/Image/Image'
+import React, { useState, useEffect } from 'react'
+import './App.css'
 import Weather from './Components/Weather/Weather'
 
-const weatherUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=2000,au&units=metric&appid=e1ec3878f6bdc360d0bd74911e0ba7fa'
+const weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast?zip=2000,au&units=metric&appid=c984cb8f0420701b13c79b9aae449db6'
 
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const App = () => {
-  const [temp, setTemp] = useState('')
-  const [iconID,setIconID] = useState('')
-  const [city, setCity] = useState('')
+  const [weather, setWeather] = useState([])
+
   useEffect(() => {
     fetch(weatherUrl)
       .then((response) => response.json())
       .then((weather) => {
-        setTemp(Math.round(weather.main.temp))
-        setCity(weather.name)
-        setIconID(weather.weather[0].icon)
+        setWeather(weather.list)
       })
+  }, [])
+
+  const fiveDayWeather = weather.filter((element, index) => {
+    if (index % 8 === 0) {
+      return element
+    }
   })
 
   return (
     <div className="App">
-      {/* <Text
-        text={city}
-        className="weather__title"
-        variant="h1"
-      />
-      <Text
-        showUniCode
-        text={temp}
-        className="weather__temperature"
-        variant="h2"
-      />
-        {iconID && <Image className="weather__icon"
-        src={`http://openweathermap.org/img/wn/${iconID}@2x.png`}
-      />} */}
-      <Weather
-        temp={temp}
-      />
+      {fiveDayWeather.map((dayOfTheWeekWeather) => (
+        <Weather
+          tempMin={Math.round(dayOfTheWeekWeather.main.temp_min)}
+          tempMax={Math.round(dayOfTheWeekWeather.main.temp_max)}
+          day={days[new Date(dayOfTheWeekWeather.dt * 1000).getDay()]}
+          icon={`http://openweathermap.org/img/wn/${dayOfTheWeekWeather.weather[0].icon}@2x.png`}
+        />
+      ))}
     </div>
   )
 }
 
-export default App;
+export default App
