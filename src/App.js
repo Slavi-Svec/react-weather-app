@@ -1,34 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 import Weather from './Components/Weather/Weather'
+import getValidWeatherData from './helpers/getValidWeatherData'
+import moment from 'moment'
+import url from './api/api'
 
-const weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast?zip=2000,au&units=metric&appid=c984cb8f0420701b13c79b9aae449db6'
-
-const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const App = () => {
   const [weather, setWeather] = useState([])
 
   useEffect(() => {
-    fetch(weatherUrl)
+    fetch(url)
       .then((response) => response.json())
-      .then((weather) => {
-        setWeather(weather.list)
-      })
-  }, [])
-
-  const fiveDayWeather = weather.filter((element, index) => {
-    if (index % 8 === 0) {
-      return element
-    }
-  })
+      .then((weather) => setWeather(getValidWeatherData(weather.list, 8)))
+  }, [weather])
 
   return (
     <div className="App">
-      {fiveDayWeather.map((dayOfTheWeekWeather) => (
+      {weather.map((dayOfTheWeekWeather) => (
         <Weather
           tempMin={Math.round(dayOfTheWeekWeather.main.temp_min)}
           tempMax={Math.round(dayOfTheWeekWeather.main.temp_max)}
-          day={days[new Date(dayOfTheWeekWeather.dt * 1000).getDay()]}
+          day={moment(dayOfTheWeekWeather.dt_txt, 'YYYY-MM-DD HH:mm:ss').format('dddd')}
           icon={`http://openweathermap.org/img/wn/${dayOfTheWeekWeather.weather[0].icon}@2x.png`}
         />
       ))}
