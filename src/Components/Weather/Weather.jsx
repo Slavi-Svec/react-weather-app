@@ -3,13 +3,13 @@ import './styles.scss'
 import Text from '../Text/Text'
 import Image from '../Image/Image'
 
-const Weather = () => (
+const Weather =  ({ day, tempMin, tempMax, icon }) => (
   <section className="weather">
-    <Text className="weather__day" text="monday"></Text>
-    <Image className="weather__image" src="http://openweathermap.org/img/wn/04d@2x.png"></Image>
+    <Text className="weather__day" text={day}></Text>
+    <Image className="weather__image" src={icon}></Image>
     <div className="weather__container-temp">
-      <Text className="weather__temp-min" showUniCode text="19"></Text>
-      <Text className="weather__temp-max" showUniCode text="38"></Text>
+      <Text className="weather__temp-min" showUniCode text={tempMin}></Text>
+      <Text className="weather__temp-max" showUniCode text={tempMax}></Text>
     </div>
   </section>
 )
